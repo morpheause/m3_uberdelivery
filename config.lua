@@ -86,4 +86,4 @@ Config.PointsToDropOnFail = 20
 
 Config.EarningsPerDelivery = 70 --$
 
--- discord: morpheause#3333
+-- discord: morpheause#3333 -- cloudfivem.com
