@@ -158,6 +158,7 @@ Citizen.CreateThread(function()
 										TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = basket[i].label.. ' eksik!', length = 8000})
 									end
 								end, basket[i].name)
+							end
 								Citizen.Wait(100)
 								if itemlistok then
 									successDelivery()
