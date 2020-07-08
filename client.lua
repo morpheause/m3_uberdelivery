@@ -69,7 +69,7 @@ function DeliveryHouse()
 	end
 	local randomcoord = math.random(1, coordcount)
 	currentCoordId = randomcoord
-	deliveryblip = AddBlipForCoord(Config.Coords[currentCoordId].x, Config.Coords[currentCoordId].y, Config.Coords[currentCoordId].z - 1)
+	deliveryblip = AddBlipForCoord(Config.Coords[currentCoordId].coords.x, Config.Coords[currentCoordId].coords.y, Config.Coords[currentCoordId].coords.z - 1)
 	SetBlipSprite(deliveryblip, 280)
 	SetBlipColour(deliveryblip, 69)
 	SetBlipScale(deliveryblip, 1.0)
@@ -79,9 +79,13 @@ function DeliveryHouse()
 	AddTextComponentString('Teslimat')
 	EndTextCommandSetBlipName(deliveryblip)
 
-	SetNewWaypoint(Config.Coords[currentCoordId].x, Config.Coords[currentCoordId].y)
+	SetNewWaypoint(Config.Coords[currentCoordId].coords.x, Config.Coords[currentCoordId].coords.y)
 	missiontext('Kalan Süren:~g~ ' .. deliverytime .. ' dakika', 60000)
 end
+
+RegisterCommand('debuguber', function()
+	print(ESX.DumpTable(Config.Coords))
+end)
 
 Citizen.CreateThread(function()
 	while true do
@@ -118,13 +122,13 @@ Citizen.CreateThread(function()
 		if deliverystarted then
 			local pPed = GetPlayerPed(-1)
 			local pCoords = GetEntityCoords(pPed)
-			local distance = GetDistanceBetweenCoords(pCoords, Config.Coords[currentCoordId].x, Config.Coords[currentCoordId].y, Config.Coords[currentCoordId].z, false)
+			local distance = GetDistanceBetweenCoords(pCoords, Config.Coords[currentCoordId].coords.x, Config.Coords[currentCoordId].coords.y, Config.Coords[currentCoordId].coords.z, false)
 			if distance < 15.0 then
-				DrawMarker(2, Config.Coords[currentCoordId].x, Config.Coords[currentCoordId].y, Config.Coords[currentCoordId].z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.4, 0.4, 0.4, 255, 255, 255, 100, false, true, 2, true, false, false, false)
+				DrawMarker(2, Config.Coords[currentCoordId].coords.x, Config.Coords[currentCoordId].coords.y, Config.Coords[currentCoordId].coords.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.4, 0.4, 0.4, 255, 255, 255, 100, false, true, 2, true, false, false, false)
 				if distance < 2.5 then
-					DrawText3D(Config.Coords[currentCoordId].x, Config.Coords[currentCoordId].y, Config.Coords[currentCoordId].z + 0.3, '[E] - Kapıyı Çal')
+					DrawText3D(Config.Coords[currentCoordId].coords.x, Config.Coords[currentCoordId].coords.y, Config.Coords[currentCoordId].coords.z + 0.3, '[E] - Kapıyı Çal')
 					if IsControlJustPressed(0, 38) then
-						TaskGoStraightToCoord(pPed, Config.Coords[currentCoordId].x, Config.Coords[currentCoordId].y, Config.Coords[currentCoordId].z, 10.0, 10, Config.Coords[currentCoordId].heading, 0.5)
+						TaskGoStraightToCoord(pPed, Config.Coords[currentCoordId].coords.x, Config.Coords[currentCoordId].coords.y, Config.Coords[currentCoordId].coords.z, 10.0, 10, Config.Coords[currentCoordId].heading, 0.5)
 						Citizen.Wait(3000)
 						ClearPedTasksImmediately(pPed)
 
