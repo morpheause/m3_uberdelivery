@@ -159,10 +159,9 @@ Citizen.CreateThread(function()
 									end
 								end, basket[i].name)
 							end
-								Citizen.Wait(100)
-								if itemlistok then
-									successDelivery()
-								end
+							Citizen.Wait(100)
+							if itemlistok then
+								successDelivery()
 							end
 						else
 							failedForNotHome()
