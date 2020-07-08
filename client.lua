@@ -148,21 +148,25 @@ Citizen.CreateThread(function()
 
 						local isinHome = math.random(1,100)
 						if isinHome <= Config.isinHomeChange then
-							local itemlistok = false
+							local itemlistok = false local checkall = true
 							for i=1, #basket, 1 do
 								ESX.TriggerServerCallback('m3:uber:getItemAmount', function(count)
 									if count > 0 then
-										itemlistok = true
+										itemlistok = i
 									else
-										itemlistok = false
+										itemlistok = false checkall = false
 										TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = basket[i].label.. ' eksik!', length = 8000})
 									end
 								end, basket[i].name)
 							end
-							Citizen.Wait(100)
-							if itemlistok then
-								successDelivery()
-							end
+							local time = 1
+							repeat
+								Citizen.Wait(1)
+								time = time + 1
+								if itemlistok == #basket and checkall then
+									successDelivery()
+								end
+							until itemlist == #basket or time == 1000
 						else
 							failedForNotHome()
 						end
