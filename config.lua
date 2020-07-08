@@ -76,7 +76,7 @@ Config.MaxDeliveryCount = 6
 
 Config.MaxWorker = 15
 
-Config.MaxDeliveryTime = 9
+Config.MaxDeliveryTime = 9 --Set to 3 and its multiples
 
 Config.isinHomeChange = 90 --%
 
@@ -84,6 +84,6 @@ Config.DefaultStartPoint = 10
 
 Config.PointsToDropOnFail = 20
 
-Config.EarningsPerDelivery = 70 --$
+Config.EarningsPerDelivery = 70 --$ about uber point
 
 -- discord: morpheause#3333 -- cloudfivem.com
