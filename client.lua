@@ -151,21 +151,11 @@ Citizen.CreateThread(function()
 							for i=1, #basket, 1 do
 								ESX.TriggerServerCallback('m3:uber:getItemAmount', function(count)
 									if count > 0 then
-										item = true
+										successDelivery()
 									else
-										item = false
 										TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = basket[i].label.. ' eksik!', length = 8000})
 									end
 								end, basket[i].name)
-								while item == nil do
-									Citizen.Wait(1)
-								end
-							end
-							if item then
-								successDelivery()
-								item = nil
-							else
-								item = nil
 							end
 						else
 							failedForNotHome()
